@@ -1,0 +1,22 @@
+{
+  "prompts": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "label": "Project name",
+      "default": "BecauseQA-WebVue-Sample"
+    },
+    "description": {
+      "type": "string",
+      "required": true,
+      "label": "Project description",
+      "default": "Webpack Vuejs Web Project Template from Walter"
+    },
+    "author": {
+      "type": "string",
+      "label": "Author",
+      "default": "alterhu2020@gmail.com<Walter.Hu>"
+    }
+  },
+  "completeMessage": "{{#inPlace}}To get started:\n\n  npm install\n  npm start.{{else}}To get started:\n\n  cd {{destDirName}}\n  npm install\n  npm start.{{/inPlace}}"
+}
