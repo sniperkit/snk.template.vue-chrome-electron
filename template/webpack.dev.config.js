@@ -11,6 +11,10 @@ Description:
   之所以创建这个项目是因为官方的vue 的webpack的脚手架实在是太笨重的，我想要一个更加适合自己，快速上手的框架
 CreateDate: 2017.11.01
 Update history:
+   2017.11.05 Walter Hu
+              1. webpack add the progress pramater
+              2. add `v-cloak` property for refresh issue in vue page(http://blog.csdn.net/bobobocai/article/details/70676951)
+
    2017.11.04 Walter Hu, winston的使用需要webpack排除
    2017.11.01 Walter Hu, init version
  */

@@ -22,6 +22,7 @@ import Axios from 'axios'
 import VueRouter from 'vue-router'
 import routes from '@/routers'
 import App from './App'
+import '@/assets/css/style.css'
 
 
 //配置nprogress

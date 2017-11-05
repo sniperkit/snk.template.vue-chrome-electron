@@ -1,7 +1,7 @@
 <template>
     <div>
         <ul>
-            <li>Demo for vue renderer: {{ msg }}</li>
+            <li>Demo for vue renderer: \{{ msg }}</li>
             <li>Demo for static image: <img src="/statics/img/react-38.png" alt="react image"></li>
             <li>Demo for vuetify component: <br>
                 <v-btn color="primary" light @click.native.prevent="fetchLocationInfo">点击我显示我的IP</v-btn>
@@ -10,13 +10,13 @@
                         mode="in-out"
                         enter-active-class="animated fadeInRight"
                         leave-active-class="animated fadeOutLeft">
-                    <h4>Your IP: {{ip}}, Your city: {{city}}, latitude: {{latitude}}, longitude: {{longitude}}</h4>
+                    <h4>Your IP: \{{ip}}, Your city: \{{city}}, latitude: \{{latitude}}, longitude: \{{longitude}}</h4>
                 </transition>
 
             </li>
             <li>
-                Demo for axios features, Latest Vuejs Version: <b>{{latestReleaseVersion}}</b>,Release Date: {{releaseDate}}<br>
-                Changes: <b>{{latestReleaseNote}}</b>
+                Demo for axios features, Latest Vuejs Version: <b>\{{latestReleaseVersion}}</b>,Release Date: \{{releaseDate}}<br>
+                Changes: <b>\{{latestReleaseNote}}</b>
             </li>
             <li>Demo for routerlink: <a href="/about">About Page</a></li>
         </ul>

@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div>
         <!--详细的使用animate.css https://github.com/daneden/animate.css-->
         <!--Vue 提供了 过渡模式-->
         <!--in-out：新元素先进行过渡，完成之后当前元素过渡离开。-->

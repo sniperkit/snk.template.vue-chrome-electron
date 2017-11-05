@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h4>{{msg}}</h4>
+        <h4>\{{msg}}</h4>
         <a href="/">Go Home Page</a>
     </div>
 
