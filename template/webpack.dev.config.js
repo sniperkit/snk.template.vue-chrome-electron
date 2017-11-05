@@ -14,7 +14,7 @@ Update history:
    2017.11.05 Walter Hu
               1. webpack add the progress pramater
               2. add `v-cloak` property for refresh issue in vue page(http://blog.csdn.net/bobobocai/article/details/70676951)
-
+              3. [changelog help](http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html)
    2017.11.04 Walter Hu, winston的使用需要webpack排除
    2017.11.01 Walter Hu, init version
  */
