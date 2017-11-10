@@ -1,3 +1,6 @@
-[v-cloak] {
-    display:none !important;
-}
+/*
+
+https://medium.com/vuejs-tips/v-cloak-45a05da28dc4
+*/
+[v-cloak] > * { display:none !important;}
+[v-cloak]::before { content: "loading…" }

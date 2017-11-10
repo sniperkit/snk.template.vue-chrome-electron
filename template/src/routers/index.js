@@ -6,26 +6,49 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 // Pages with lazy reloading,Vue-Router 懒加载,这样会导致chunkFileName多生成js文件
-const Home = resolve => require(['@/components/Home'], resolve)
-const About = resolve => require(['@/components/About'], resolve)
-
+// see: https://vuejsdevelopers.com/2017/07/08/vue-js-3-ways-code-splitting-webpack/
+// const Home = resolve => require(['@/components/Home'], resolve)
+// const HotRelease = resolve => require(['@/components/HotRelease'], resolve)
+// const HotReleaseDetail = resolve => require(['@/components/HotReleaseDetail'], resolve)
 
 const routers = [
-    {
-        path: '/',
-        name: 'Home',
-        component: Home
-    },
-    {
-        path: '/about',
-        name: 'About',
-        component: About
-    },
-    {
-        path: '*',
-        redirect: '/'
-    }
+  {
+    name: 'Home',
+    path: '/',
+    component: view('Home')
+  },
+  {
+    name: 'HotRelease',
+    path: '/hot',
+    component: view('HotRelease')
+  },
+  {
+    name: 'HotReleaseDetail',
+    path: '/hotdetail',
+    component: view('HotReleaseDetail')
+  },
+  {
+    name: 'globalException',
+    path: '*',
+    redirect: '/'
+  }
 ]
 
+/**
+ * The common vue-router function to get the component page
+ * https://router.vuejs.org/en/advanced/lazy-loading.html
+ * @param componentName
+ * @returns {function(): *}
+ */
+function view (componentName) {
+  let chunkName = componentName
+  if (componentName.indexOf('/') !== -1) {
+    chunkName = componentName.replace(new RegExp('/', 'g'), '_')
+  }
+  console.log(`Not used chunk name is: ${chunkName}`)
+  // const view = r => require.ensure([], () => r(require(`@/components/${componentName}`)), chunkName)
+  const view = () => import(/* webpackChunkName: "lazyRouterChunk" */ `@/components/${componentName}`)
+  return view
+}
 
 export default routers

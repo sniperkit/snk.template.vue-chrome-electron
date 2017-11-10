@@ -3,16 +3,22 @@
     [
       "env",
       {
-        "modules": false,
-        "targets": {
-          "browsers": [
-            "last 2 versions",
-            "safari >= 7",
-            "not ie <= 8"
-          ],
-          "node": "current"
-        }
+        "modules": false
       }
-    ]
-  ]
+    ],
+    "stage-2"
+  ],
+  "plugins": [
+    "transform-runtime"
+  ],
+  "comments": true,
+  "env": {
+    "test": {
+      "presets": [
+        "env",
+        "stage-2"
+      ],
+      "plugins": [
+    }
+  }
 }
