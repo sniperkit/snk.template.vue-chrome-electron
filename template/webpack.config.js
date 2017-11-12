@@ -1,12 +1,4 @@
 /*
- * Copyright (c) 2017. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
- * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
- * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
- * Vestibulum commodo. Ut rhoncus gravida arcu.
- */
-
-/*
 Description:
   之所以创建这个项目是因为官方的vue 的webpack的脚手架实在是太笨重的，我想要一个更加适合自己，快速上手的框架
 CreateDate: 2017.11.01
@@ -14,7 +6,6 @@ Update history:
    2017.11.10 Walter Hu
               1. publicPath change
               2. add into one file
-              3.
    2017.11.05 Walter Hu
               1. webpack add the progress pramater
               2. add `v-cloak` property for refresh issue in vue page(http://blog.csdn.net/bobobocai/article/details/70676951)
@@ -26,7 +17,7 @@ const path = require('path')
 const webpack = require('webpack')
 const pkg = require('./package.json')
 
-// Plugins from webpack
+// webpack的通用插件
 const cleanDistFolderPlugin = require('clean-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -34,7 +25,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const WriteFileWebPackPlugin = require('write-file-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const notifier = require('node-notifier')
-//production only
+// webpack生产环境需要的插件
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const productionGzip = false
@@ -50,7 +41,7 @@ const assetsOutputPath = 'static'
 // 线上assets目录文件的相对位置，在开发环境或者本地的文件的时候是/在prodution可以是CDN地址
 const publicPath = isDevEnvironment ? '/' : './'
 const sourceMap = isDevEnvironment ? '#cheap-module-eval-source-map' : '#source-map'
-//webpack dev server
+//webpack dev server的配置
 const devServer = {
   host: devServerHost,
   port: devServerPort,
@@ -71,7 +62,7 @@ const devServer = {
   watchOptions: {
     poll: false // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
   },
-  historyApiFallback: true,
+  historyApiFallback: true, //404错误的重定向
   headers: {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
