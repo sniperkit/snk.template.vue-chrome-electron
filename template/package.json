@@ -1,11 +1,11 @@
 {
-  "name": "{{name}}",
-  "version": "1.0.1",
-  "description": "{{description}}",
+  "name": "becauseqa-vue-web",
+  "version": "1.0.2",
+  "description": "becauseqa web template using vue framework",
   "homepage": "http://becauseqa.info",
   "author": {
-    "name": "{{author}}",
-    "email": "{{author}}"
+    "name": "Walter Hu",
+    "email": "alterhu2020@gmail.com"
   },
   "license": "MIT",
   "repository": {
@@ -20,7 +20,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack-dev-server --config webpack.config.js",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
-    "changelog": "changelog"
+    "changelog": "standard-version"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
