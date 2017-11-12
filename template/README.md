@@ -1,8 +1,8 @@
-# vuejs-template
+# Vue-web-template
 
 > A full-featured Webpack setup with hot-reload, lint-on-save, unit testing & css extraction.
 
-> This template is Vue 2.0 compatible. For Vue 1.x use this command: `vue init alterhu2020/vuejs#1.0 my-project`
+> This template is modified from offical template `vuejs-templates/webpack`, Vue 2.0 compatible.But there're some difference for this template, it only contained one webpack config file, but it had the full feature as offical provided. Also provide many useful features, like vuex, axios and vuetify.
 
 ## Documentation
 
@@ -15,17 +15,25 @@ This is a project template for [vue-cli](https://github.com/vuejs/vue-cli). **It
 
 ``` bash
 $ npm install -g vue-cli
-$ vue init alterhu2020/vuejs my-project
+$ vue init BecauseQA/becauseqa-vue-web my-project
 $ cd my-project
 $ npm install
-$ npm run dev
+$ npm start
 ```
+Or you can download this project repository,extract the source code to somewhere folder and then run following commands to start it
 
-If port 7070 is already in use on your machine you must change the port number in `/config/index.js`. Otherwise `npm run dev` will fail.
+```bash
+$ npm install -g vue-cli
+$ vue init ./somewherefolder my-project
+$ cd my-project
+$ npm install
+$ npm start
+```
+If port 3000 is already in use on your machine you must change the port number in `/webpack.config.js` in the line `const devServerPort = process.env.PORT || '3000'`. Otherwise `npm start` will fail.
 
 ## What's Included
 
-- `npm run dev`: first-in-class development experience.
+- `npm start`: first-in-class development experience.
   - Webpack + `vue-loader` for single file Vue components.
   - State preserving hot-reload
   - State preserving compilation error overlay
