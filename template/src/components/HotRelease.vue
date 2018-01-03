@@ -1,3 +1,28 @@
+<!--
+  - The MIT License (MIT)
+  -
+  - Copyright (c) 2017 Becauseqa.Inc.
+  -
+  - Permission is hereby granted, free of charge, to any person obtaining a copy
+  - of this software and associated documentation files (the "Software"), to deal
+  - in the Software without restriction, including without limitation the rights
+  - to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  - copies of the Software, and to permit persons to whom the Software is
+  - furnished to do so, subject to the following conditions:
+  -
+  - The above copyright notice and this permission notice shall be included in all
+  - copies or substantial portions of the Software.
+  -
+  - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  - IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  - AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  - LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  - SOFTWARE.
+  -
+  -->
+
 <template>
     <!--
     v-layout:
@@ -99,12 +124,12 @@
         }
 
         for (const tech in techs) {
-          const latestRleaseUrl = `/github/repos/${techs[tech]}/tags`
+          const latestRleaseUrl = `https://api.github.com/repos/${techs[tech]}/tags`
           this.$http.get(latestRleaseUrl, config).then((response) => {
             const latestReleaseData = response.data[0]
             if (latestReleaseData) {
               const latestTagName = latestReleaseData.name
-              const latestTagUrl = `/github/repos/${techs[tech]}/releases/tags/${latestTagName}`
+              const latestTagUrl = `https://api.github.com/repos/${techs[tech]}/releases/tags/${latestTagName}`
               this.progress = true
               this.$http.get(latestTagUrl, config).then((response) => {
                 const latestReleaseData = response.data

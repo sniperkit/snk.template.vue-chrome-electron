@@ -1,38 +1,115 @@
 {
-  "name": "becauseqa-vue-web",
-  "version": "1.0.2",
-  "description": "becauseqa web template using vue framework",
+  "name": "{{name}}",
+  "version": "1.0.1",
+  "description": "{{description}}",
   "homepage": "http://becauseqa.info",
   "author": {
-    "name": "Walter Hu",
-    "email": "alterhu2020@gmail.com"
+    "name": "BecauseQA, Inc.",
+    "email": "{{author}}"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/BecauseQA/becauseqa-vue-web.git"
+    "url": "https://github.com/BecauseQA/becauseqa-vue-webpack.git"
   },
   "bugs": {
-    "url": "https://github.com/BecauseQA/becauseqa-vue-web/issues"
+    "url": "https://github.com/BecauseQA/becauseqa-vue-webpack/issues"
   },
   "private": true,
-  "main": "src/index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack-dev-server --config webpack.config.js",
-    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
-    "changelog": "standard-version"
+    "start": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack-dev-server/bin/webpack-dev-server --config webpack.config.web.js",
+    "start-chrome-extension": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack-dev-server/bin/webpack-dev-server --config webpack.config.chrome.js",
+    "start-app": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack-dev-server/bin/webpack-dev-server --config webpack.config.electron.renderer.js",
+    "start-app-main": "cross-env NODE_ENV=development BABEL_ENV=main electron -r babel-register ./app/electron/main.js",
+    "build": "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.web.js --colors",
+    "build-chrome": "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.chrome.js --colors",
+    "build-electron": "npm run build-electron-renderer && npm run build-electron-main",
+    "build-electron-main": "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.electron.main.js --colors",
+    "build-electron-renderer": "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.electron.renderer.js --colors",
+    "release-win": "npm run build-electron && electron-builder -w",
+    "release-mac": "npm run build-electron && electron-builder -m",
+    "release-linux": "npm run build-electron && electron-builder -l",
+    "release-all": "npm run build-electron && electron-builder -mwl",
+    "lint": "eslint --cache --format=node_modules/eslint-formatter-pretty .",
+    "lint-fix": "npm run lint -- --fix",
+    "changelog": "conventional-changelog -p becauseqa-vue-web -i CHANGELOG.md -s"
+  },
+  "main": "./dist/main.bundle.js",
+  "build": {
+    "electronDownload": {
+      "quiet": false,
+      "strictSSL": false,
+      "verifyChecksum": false
+    },
+    "detectUpdateChannel": true,
+    "generateUpdatesFilesForAllChannels": false,
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "http://127.0.0.1/files/installers/",
+        "channel": "latest"
+      }
+    ],
+    "appId": "info.becauseqa.app",
+    "artifactName": "${name}-${os}-${arch}-${version}.${ext}",
+    "copyright": "Copyright © 2017 ${author}",
+    "directories": {
+      "buildResources": "static",
+      "output": "bin"
+    },
+    "files": [
+      "dist/"
+    ],
+    "asarUnpack": [
+      "dist/static/img/*"
+    ],
+    "forceCodeSigning": false,
+    "win": {
+      "icon": "static/img/favicon.ico",
+      "publisherName": "BecauseQA, Inc.",
+      "target": [
+        {
+          "target": "nsis"
+        }
+      ]
+    },
+    "nsis": {
+      "perMachine": false,
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "license": "LICENSE"
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 410,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 130,
+          "y": 150,
+          "type": "file"
+        }
+      ]
+    },
+    "mac": {
+      "icon": "static/img/favicon.icns"
+    },
+    "linux": {
+      "icon": "static/img"
+    }
   },
   "devDependencies": {
+    "cross-env": "^5.1.1",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.1",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
-    "babel-preset-stage-2": "^6.24.1",
-    "clean-webpack-plugin": "^0.1.17",
-    "compression-webpack-plugin": "^1.0.1",
-    "copy-webpack-plugin": "^4.2.0",
-    "cross-env": "^5.1.1",
+    "babel-preset-minify": "^0.2.0",
+    "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^0.28.7",
     "eslint": "^4.10.0",
     "eslint-config-standard": "^10.2.1",
@@ -43,14 +120,10 @@
     "eslint-plugin-node": "^5.2.0",
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^3.0.1",
-    "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.5",
     "url-loader": "^0.6.2",
-    "friendly-errors-webpack-plugin": "^1.6.1",
-    "html-webpack-plugin": "^2.30.1",
     "node-notifier": "^5.1.2",
     "node-sass": "^4.6.0",
-    "optimize-css-assets-webpack-plugin": "^3.2.0",
     "sass-loader": "^6.0.6",
     "standard-version": "^4.2.0",
     "vue-loader": "^13.3.0",
@@ -58,7 +131,22 @@
     "vue-template-compiler": "^2.5.2",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.3",
-    "write-file-webpack-plugin": "^4.2.0"
+    "webpack-merge": "^4.1.1",
+    "clean-webpack-plugin": "^0.1.17",
+    "compression-webpack-plugin": "^1.0.1",
+    "copy-webpack-plugin": "^4.2.0",
+    "write-file-webpack-plugin": "^4.2.0",
+    "optimize-css-assets-webpack-plugin": "^3.2.0",
+    "friendly-errors-webpack-plugin": "^1.6.1",
+    "html-webpack-plugin": "^2.30.1",
+    "offline-plugin": "^4.9.0",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "electron": "^1.7.9",
+    "devtron": "^1.4.0",
+    "electron-debug": "^1.4.0",
+    "electron-devtools-installer": "^2.2.0",
+    "electron-builder": "^19.48.2",
+    "electron-updater": "^2.16.3"
   },
   "dependencies": {
     "animate.css": "^3.5.2",
@@ -70,6 +158,8 @@
     "vue-axios": "^2.0.2",
     "vue-router": "^3.0.1",
     "vuetify": "^0.16.9",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "winston": "latest",
+    "winston-daily-rotate-file": "latest"
   }
 }

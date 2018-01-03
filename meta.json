@@ -6,6 +6,12 @@
       "label": "Project name",
       "default": "BecauseQA-WebVue-Sample"
     },
+    "version": {
+      "type": "string",
+      "required": false,
+      "label": "Project version",
+      "default": "1.0.0"
+    },
     "description": {
       "type": "string",
       "required": true,

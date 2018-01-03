@@ -1,3 +1,28 @@
+<!--
+  - The MIT License (MIT)
+  -
+  - Copyright (c) 2017 Becauseqa.Inc.
+  -
+  - Permission is hereby granted, free of charge, to any person obtaining a copy
+  - of this software and associated documentation files (the "Software"), to deal
+  - in the Software without restriction, including without limitation the rights
+  - to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  - copies of the Software, and to permit persons to whom the Software is
+  - furnished to do so, subject to the following conditions:
+  -
+  - The above copyright notice and this permission notice shall be included in all
+  - copies or substantial portions of the Software.
+  -
+  - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  - IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  - FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  - AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  - LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  - OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  - SOFTWARE.
+  -
+  -->
+
 <template>
     <v-app id="inspire">
         <v-navigation-drawer
@@ -28,7 +53,7 @@
         </v-navigation-drawer>
         <v-toolbar color="blue-grey" dark fixed app>
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-            <v-toolbar-title>Dashboard, US Pacific Time: \{{ustime}}</v-toolbar-title>
+            <v-toolbar-title>Dashboard, US Pacific Time: \{{USTime}}</v-toolbar-title>
         </v-toolbar>
         <main>
             <v-content>
@@ -55,26 +80,30 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      drawer: true,
-      now: Date.now()
-    }),
-    computed: {
-      ustime: function () {
-        return new Date(this.now).toLocaleString('en-US', {timeZone: 'America/Los_Angeles'})
-      }
-    },
-    methods: {
-      changeTime: function () {
-        const self = this
-        setInterval(function () {
-          self.now = Date.now()
-        }, 1000)
-      }
-    },
-    mounted () {
-      this.changeTime()
+    export default {
+        data: () => ({
+            drawer: true,
+            now: Date.now()
+        }),
+        computed: {
+            USTime: function () {
+                return new Date(this.now).toLocaleString('en-US', {timeZone: 'America/Los_Angeles'})
+            }
+        },
+        methods: {
+            changeTime: function () {
+                const self = this
+                setInterval(function () {
+                    self.now = Date.now()
+                }, 1000)
+            }
+        },
+        mounted() {
+            this.changeTime()
+        }
     }
-  }
 </script>
+<style>
+    /*NOTICE: the proxy setting, otherwise it will not get correct data*/
+    @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons');
+</style>
