@@ -1,8 +1,8 @@
-# Vue-web-template
+# Vuejs-template
 
-> A full-featured Webpack setup with hot-reload, lint-on-save, unit testing & css extraction.
+> A full-featured Webpack setup with hot-reload, lint-on-save, unit testing & css extraction. You can use it in your electron or chrome-extension development.
 
-> This template is modified from offical template `vuejs-templates/webpack`, Vue 2.0 compatible.But there're some difference for this template, it only contained one webpack config file, but it had the full feature as offical provided. Also provide many useful features, like vuex, axios and vuetify.
+> This template is modified from offical template `vuejs-templates/webpack`, Vue 2.0 compatible.But there're some difference for this template, it only contained one webpack config file, but it had the full feature as offical provided. Also provide many useful features, like electron, chrome-extension development, vuex, vuetify and axios.
 
 ## Documentation
 
@@ -15,31 +15,43 @@ This is a project template for [vue-cli](https://github.com/vuejs/vue-cli). **It
 
 ``` bash
 $ npm install -g vue-cli
-$ vue init BecauseQA/becauseqa-vue-web my-project
-$ cd my-project
+$ vue init BecauseQA/vuejs-template my-project-name
+$ cd my-project-name
 $ npm install
-$ npm start
+$ npm start     // for web app
+$ npm start-app // for electron app
+$ npm start-chrome-extension  // for chrome-extension development
 ```
-Or you can download this project repository,extract the source code to somewhere folder and then run following commands to start it
+Or you can download this project repository,extract the source code to `somewhere` folder and then run following commands to start it
 
 ```bash
 $ npm install -g vue-cli
-$ vue init ./somewherefolder my-project
-$ cd my-project
+$ vue init ./somewhere my-project-name
+$ cd my-project-name
 $ npm install
-$ npm start
+$ npm start     // for web app
+$ npm start-app // for electron app
+$ npm start-chrome-extension  // for chrome-extension development
 ```
-If port 3000 is already in use on your machine you must change the port number in `/webpack.config.js` in the line `const devServerPort = process.env.PORT || '3000'`. Otherwise `npm start` will fail.
+If port 3000 is already in use on your machine you must change the port number in `/webpack.config.base.js` in the line `const devServerPort = process.env.PORT || '3000'`. Otherwise `npm start` will fail.
 
 ## What's Included
 
-- `npm start`: first-in-class development experience.
+- `npm start`: first-in-class development experience for web .
   - Webpack + `vue-loader` for single file Vue components.
   - State preserving hot-reload
   - State preserving compilation error overlay
   - Lint-on-save with ESLint
   - Source maps
-
+  
+- `npm start-app`: first-in-class development experience for electron using vuejs.
+  - Webpack + `vue-loader` for single file Vue components.
+  - State preserving hot-reload
+  - State preserving compilation error overlay
+  - Lint-on-save with ESLint
+  - Source maps
+  - Auto update with `electron`
+  
 - `npm run build`: Production ready build.
   - JavaScript minified with [UglifyJS](https://github.com/mishoo/UglifyJS2).
   - HTML minified with [html-minifier](https://github.com/kangax/html-minifier).
@@ -54,5 +66,5 @@ If port 3000 is already in use on your machine you must change the port number i
 You can fork this repo to create your own boilerplate, and use it with `vue-cli`:
 
 ``` bash
-vue init username/repo my-project
+vue init username/repo my-project-name
 ```
