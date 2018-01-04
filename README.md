@@ -9,6 +9,39 @@
 - [For this template](http://vuejs-templates.github.io/webpack): common questions specific to this template are answered and each part is described in greater detail
 - [For Vue 2.0](http://vuejs.org/guide/): general information about how to work with Vue, not specific to this template
 
+## Template structure
+```
+├── electron-vue-webpack/               # Your project's name
+
+  ├── app/
+
+        ├── chrome/                       # Chrome extension configuration location,the manifest.json file 
+            |── js/                       # Chrome extension common api
+            |── libs/                     # Third-party libraries, like jquery.etc
+        
+        ├── electron/
+
+            ├── js/                       # Common function used by electron
+            ├── main.js
+
+   ├── src/                               # Main vue source folder
+            ├── assets/                   # The assets folder to store js,css,font or image files
+            ├── components/               # The page components
+            ├── routers/                  # The vue-router store file
+            ├── stores/                   # Vuex configuration file
+            ├── utils/                    # Common js functions
+            ├── App.vue                   # Vue app. Your global css can go here
+            ├── index.js                  # App entry. Your global js can go here
+            ├── index.html                # Single Page Application HTML, it only uses build's files
+
+    ├── webpack.config.base.js            # Webpack common base configuration file
+    ├── package.json                      # The main dependency and electron-builder configuration
+    ├── webpack.config.chrome.js          # Chrome extension webpack configuration file
+    ├── webpack.config.electron.main.js   # Electron main processor webpack configuration file
+    ├── webpack.config.electron.render.js # Electron renderer processor webpack configuration file
+    ├── webpack.config.web.js             # Vuejs web webpack configuration file 
+```
+
 ## Usage
 
 This is a project template for [vue-cli](https://github.com/vuejs/vue-cli). **It is recommended to use npm 3+ for a more efficient dependency tree.**
