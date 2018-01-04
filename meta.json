@@ -4,7 +4,7 @@
       "type": "string",
       "required": true,
       "label": "Project name",
-      "default": "BecauseQA-WebVue-Sample"
+      "default": "BecauseQA-Vue-Webpack-Sample"
     },
     "version": {
       "type": "string",
@@ -16,7 +16,7 @@
       "type": "string",
       "required": true,
       "label": "Project description",
-      "default": "Webpack Vuejs Web Project Template from Walter"
+      "default": "Universal Vue Webpack Project Template for Web, Electron and chrome extension plugin"
     },
     "author": {
       "type": "string",
@@ -24,5 +24,5 @@
       "default": "alterhu2020@gmail.com<Walter.Hu>"
     }
   },
-  "completeMessage": "{{#inPlace}}To get started:\n\n  npm install\n  npm start/npm run start-app/npm run start-chrome-extension {{else}}To get started:\n\n  cd {{destDirName}}\n  npm install\n  npm start/npm run start-app/npm run start-chrome-extension {{/inPlace}}"
+  "completeMessage": "{{#inPlace}}To get started now:\n\n  npm install\n  npm start/npm run start-app/npm run start-chrome-extension {{else}}To get started:\n\n  cd {{destDirName}}\n  npm install\n  npm start/npm run start-app/npm run start-chrome-extension {{/inPlace}}"
 }
