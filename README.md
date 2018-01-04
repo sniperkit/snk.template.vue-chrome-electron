@@ -2,7 +2,7 @@
 
 > A full-featured Webpack setup with hot-reload, lint-on-save, unit testing & css extraction. You can use it in your electron or chrome-extension development.
 
-> This template is modified from offical template `vuejs-templates/webpack`, Vue 2.0 compatible.But there're some difference for this template, it only contained one webpack config file, but it had the full feature as offical provided. Also provide many useful features, like electron, chrome-extension development, vuex, vuetify and axios.
+> This template is modified from offical template `vuejs-templates/webpack`, Vue 2.0 compatible.But there're some difference for this template, it only contained one webpack config file, but it had the full feature as offical provided. Also provide many useful features, like `electron`, `chrome-extension development`, `vuex`, `vuetify` and `axios`.
 
 ## Documentation
 
