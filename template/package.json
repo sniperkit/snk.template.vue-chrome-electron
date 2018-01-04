@@ -1,6 +1,6 @@
 {
   "name": "{{name}}",
-  "version": "1.0.1",
+  "version": "{{version}}",
   "description": "{{description}}",
   "homepage": "http://becauseqa.info",
   "author": {
