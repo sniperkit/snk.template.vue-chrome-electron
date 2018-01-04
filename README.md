@@ -11,7 +11,7 @@
 
 ## Template structure
 ```
-├── electron-vue-webpack/               # Your project's name
+├── becauseqa-vue-webpack/               # Your project's name
 
   ├── app/
 
