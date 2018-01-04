@@ -43,6 +43,7 @@ If port 3000 is already in use on your machine you must change the port number i
   - State preserving compilation error overlay
   - Lint-on-save with ESLint
   - Source maps
+  - Service worker to support PWA page
   
 - `npm start-app`: first-in-class development experience for electron using vuejs.
   - Webpack + `vue-loader` for single file Vue components.
@@ -50,7 +51,18 @@ If port 3000 is already in use on your machine you must change the port number i
   - State preserving compilation error overlay
   - Lint-on-save with ESLint
   - Source maps
-  - Auto update with `electron`
+  - Auto update with `electron-builder`
+  - Static assets support for `SystemTray`
+  
+- `npm start-chrome-extension`: first-in-class development experience for developing chrome extension using vuejs framework.
+  - Webpack + `vue-loader` for single file Vue components.
+  - State preserving hot-reload
+  - State preserving compilation error overlay
+  - Lint-on-save with ESLint
+  - Source maps
+  - manifest and background page with ES6 feature
+
+
   
 - `npm run build`: Production ready build.
   - JavaScript minified with [UglifyJS](https://github.com/mishoo/UglifyJS2).
