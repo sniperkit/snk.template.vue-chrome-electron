@@ -31,7 +31,7 @@ let tabindex = 0
 let createdTabId // created tab object
 const newTab = function (url) {
     if (!createdTabId) {
-        const uniqueUrl = chrome.extension.getURL(url + "?id=" + tabindex++)
+        const uniqueUrl = chrome.extension.getURL(url + '?id=' + tabindex++)
         chrome.tabs.create({
             url: uniqueUrl
         }, function (tab) {
@@ -41,6 +41,16 @@ const newTab = function (url) {
         // highlight the tab with index property
         chrome.tabs.highlight({tabs: [createdTabId.index]})
     }
+}
+/**
+ * https://developer.chrome.com/extensions/tabs#event-onRemoved
+ */
+const closeTabEvent = function () {
+    chrome.tabs.onRemoved.addListener(function (tabId, removeInfo) {
+        if (tabId === createdTabId.id) {
+            createdTabId = null
+        }
+    })
 }
 
 /**
@@ -55,4 +65,4 @@ const executeJavaScriptCode = function (tabId, jsCode) {
     chrome.tabs.executeScript(tabId, {code: jsCode})
 }
 
-export {newTab}
+export {newTab, closeTabEvent}

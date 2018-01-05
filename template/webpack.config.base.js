@@ -50,8 +50,10 @@ const pkg = require('./package.json')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const WriteFileWebPackPlugin = require('write-file-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+
 const notifier = require('node-notifier')
 //production only
+const offlinePlugin = require('offline-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const productionGzip = false
@@ -540,7 +542,25 @@ if (isDevEnvironment) {
                 {safe: true, map: {inline: false}}
         }),
         // enable scope hoisting
-        new webpack.optimize.ModuleConcatenationPlugin()
+        new webpack.optimize.ModuleConcatenationPlugin(),
+        // support for service worker, with offline
+        new offlinePlugin({
+            appShell: '/', // 404 fallback ServiceWorker.navigateFallbackURL
+            caches: 'all',
+            responseStrategy: 'cache-first',
+            updateStrategy: 'changed',
+            externals: [],
+            excludes: ['**/.*', '**/*.map', '**/*.gz'],
+            relativePaths: true,
+            autoUpdate: 1000 * 60 * 60 * 5, // (five hours)
+            ServiceWorker: {
+                output: 'sw.js',
+                scope: null,
+                events: false,
+                minify: false
+            }
+
+        })
 
     ])
     // if need to zip the sourcecode in production

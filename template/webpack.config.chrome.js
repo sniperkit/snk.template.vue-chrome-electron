@@ -28,7 +28,6 @@ const merge = require('webpack-merge')
 const cleanDistFolderPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const offlinePlugin = require('offline-plugin')
 const {baseWebPackConfig, sourcePath, outputPath, assetsOutputPath} = require('./webpack.config.base')
 
 const mainEntryJS = path.join(sourcePath, 'index.js')
@@ -105,25 +104,8 @@ const chromeWebpackConfig = merge(baseWebPackConfig, {
                 from: path.resolve(chromeConfigPath, 'libs'),
                 to: path.resolve(assetsOutputPath, 'libs')
             }
-        ]),
-        // support for service worker, with offline
-        new offlinePlugin({
-            appShell: '/', // 404 fallback ServiceWorker.navigateFallbackURL
-            caches: 'all',
-            responseStrategy: 'cache-first',
-            updateStrategy: 'changed',
-            externals: [],
-            excludes: ['**/.*', '**/*.map', '**/*.gz'],
-            relativePaths: true,
-            autoUpdate: 1000 * 60 * 60 * 5, // (five hours)
-            ServiceWorker: {
-                output: 'sw.js',
-                scope: null,
-                events: false,
-                minify: false
-            }
+        ])
 
-        })
     ]
 })
 

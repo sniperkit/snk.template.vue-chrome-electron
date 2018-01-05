@@ -85,90 +85,90 @@
 
 </template>
 <script>
-  import Spinner from '@/components/Spinner'
-  import { mapGetters, mapActions } from 'vuex'
+    import Spinner from '@/components/Spinner'
+    import { mapGetters, mapActions } from 'vuex'
 
-  export default {
-    data () {
-      return {
-        header: new Date().toDateString(),
-        items: [],
-        progress: false
-      }
-    },
-    components: {Spinner},
-    methods: {
-      fetchLatestVersion: function () {
-        const techs = {
-          Vuejs: 'vuejs/vue',
-          Vuex: 'vuejs/vuex',
-          vuerouter: 'vuejs/vue-router',
-          Vuejswepack: 'vuejs-templates/webpack',
-          Vuetify: 'vuetifyjs/vuetify',
-          Axios: 'axios/axios',
-          Threejs: 'mrdoob/three.js',
-          OKHttp: 'square/okhttp',
-          electron: 'electron/electron',
-          electronBuilder: 'electron-userland/electron-builder',
-          nodejs: 'nodejs/node',
-          Selenium: 'SeleniumHQ/selenium',
-          VSCode: 'Microsoft/vscode',
-          Jackson:'FasterXML/jackson-core',
-          SpringBoot:'spring-projects/spring-boot',
-          SpringFramework:'spring-projects/spring-framework',
-
-        }
-        // use authentication header to get more limit rate in github api
-        var config = {
-          headers: {'Authorization': 'Basic YWx0ZXJodTIwMjBAZ21haWwuY29tOmd1Y2hhbjEwMjY='}
-        }
-
-        for (const tech in techs) {
-          const latestRleaseUrl = `https://api.github.com/repos/${techs[tech]}/tags`
-          this.$http.get(latestRleaseUrl, config).then((response) => {
-            const latestReleaseData = response.data[0]
-            if (latestReleaseData) {
-              const latestTagName = latestReleaseData.name
-              const latestTagUrl = `https://api.github.com/repos/${techs[tech]}/releases/tags/${latestTagName}`
-              this.progress = true
-              this.$http.get(latestTagUrl, config).then((response) => {
-                const latestReleaseData = response.data
-                const latestReleaseDate = latestReleaseData.published_at
-                const releaseDate = new Date(latestReleaseDate).getTime()
-                const currentDate = new Date().getTime()
-                const oneDay = 24 * 60 * 60 * 1000
-                const days = Math.round(Math.abs((currentDate - releaseDate) / (oneDay)))
-                if (days <= 7) {
-                  latestReleaseData.showBadge = true
-                } else {
-                  latestReleaseData.showBadge = false
-                }
-                latestReleaseData.title = tech
-                this.items.push(latestReleaseData)
-                this.progress = false
-              }).catch((error) => {
-                this.progress = false
-                console.log(`exception occurred with error ${error}`)
-              })
-
+    export default {
+        data () {
+            return {
+                header: new Date().toDateString(),
+                items: [],
+                progress: false
             }
+        },
+        components: {Spinner},
+        methods: {
+            fetchLatestVersion: function () {
+                const techs = {
+                    Vuejs: 'vuejs/vue',
+                    Vuex: 'vuejs/vuex',
+                    vuerouter: 'vuejs/vue-router',
+                    Vuejswepack: 'vuejs-templates/webpack',
+                    Vuetify: 'vuetifyjs/vuetify',
+                    Axios: 'axios/axios',
+                    Threejs: 'mrdoob/three.js',
+                    OKHttp: 'square/okhttp',
+                    electron: 'electron/electron',
+                    electronBuilder: 'electron-userland/electron-builder',
+                    nodejs: 'nodejs/node',
+                    Selenium: 'SeleniumHQ/selenium',
+                    VSCode: 'Microsoft/vscode',
+                    Jackson:'FasterXML/jackson-core',
+                    SpringBoot:'spring-projects/spring-boot',
+                    SpringFramework:'spring-projects/spring-framework',
 
-          })
+                }
+                // use authentication header to get more limit rate in github api
+                var config = {
+                    headers: {'Authorization': 'Basic YWx0ZXJodTIwMjBAZ21haWwuY29tOmd1Y2hhbjEwMjY='}
+                }
 
+                for (const tech in techs) {
+                    const latestRleaseUrl = `https://api.github.com/repos/${techs[tech]}/tags`
+                    this.$http.get(latestRleaseUrl, config).then((response) => {
+                        const latestReleaseData = response.data[0]
+                        if (latestReleaseData) {
+                            const latestTagName = latestReleaseData.name
+                            const latestTagUrl = `https://api.github.com/repos/${techs[tech]}/releases/tags/${latestTagName}`
+                            this.progress = true
+                            this.$http.get(latestTagUrl, config).then((response) => {
+                                const latestReleaseData = response.data
+                                const latestReleaseDate = latestReleaseData.published_at
+                                const releaseDate = new Date(latestReleaseDate).getTime()
+                                const currentDate = new Date().getTime()
+                                const oneDay = 24 * 60 * 60 * 1000
+                                const days = Math.round(Math.abs((currentDate - releaseDate) / (oneDay)))
+                                if (days <= 7) {
+                                    latestReleaseData.showBadge = true
+                                } else {
+                                    latestReleaseData.showBadge = false
+                                }
+                                latestReleaseData.title = tech
+                                this.items.push(latestReleaseData)
+                                this.progress = false
+                            }).catch((error) => {
+                                this.progress = false
+                                console.log(`exception occurred with error ${error}`)
+                            })
+
+                        }
+
+                    })
+
+                }
+                // sort the data
+                this.items.sort(function (firstData, secondData) {
+                    return Date.parse(secondData.published_at) - Date.parse(firstData.published_at)
+                })
+            },
+            showDetailNotes: function (item) {
+                console.log('item body is ' + item)
+                this.$store.dispatch('updateCurrentReleaseAction', item)
+                this.$router.push({name: 'HotReleaseDetail'})
+            }
+        },
+        created () {
+            this.fetchLatestVersion()
         }
-        // sort the data
-        this.items.sort(function (firstData, secondData) {
-          return Date.parse(secondData.published_at) - Date.parse(firstData.published_at)
-        })
-      },
-      showDetailNotes: function (item) {
-        console.log('item body is ' + item)
-        this.$store.dispatch('updateCurrentReleaseAction', item)
-        this.$router.push({name: 'HotReleaseDetail'})
-      }
-    },
-    created () {
-      this.fetchLatestVersion()
     }
-  }
 </script>

@@ -25,8 +25,10 @@
 /* global chrome */
 // Put the backgroundscript here,
 // Help for setup in vscode https://gooroo.io/GoorooTHINK/Article/16413/Creating-a-Chrome-extension-using-Visual-Studio-Code/19953#.We7aiFtSyUk
-import {newTab} from './js/tabsUtils'
+import {newTab, closeTabEvent} from './js/tabsUtils'
 
+// register the tab close event
+closeTabEvent()
 chrome.browserAction.onClicked.addListener(function (tab) {
     newTab('index.html')
 })

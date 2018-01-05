@@ -89,25 +89,8 @@ const webWebpackConfig = merge(baseWebPackConfig, {
                     to: assetsOutputPath,
                     ignore: ['.*']
                 }
-            ]),
-            // support for service worker, with offline
-            new offlinePlugin({
-                appShell: '/', // 404 fallback ServiceWorker.navigateFallbackURL
-                caches: 'all',
-                responseStrategy: 'cache-first',
-                updateStrategy: 'changed',
-                externals: [],
-                excludes: ['**/.*', '**/*.map', '**/*.gz'],
-                relativePaths: true,
-                autoUpdate: 1000 * 60 * 60 * 5, // (five hours)
-                ServiceWorker: {
-                    output: 'sw.js',
-                    scope: null,
-                    events: false,
-                    minify: false
-                }
+            ])
 
-            })
         ]
     }
 )

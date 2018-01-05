@@ -41,6 +41,16 @@ const routers = [
         component: view('Home')
     },
     {
+        name: 'Login',
+        path: '/login',
+        component: view('Login')
+    },
+    {
+        name: 'TableGrid',
+        path: '/table',
+        component: view('TableGrid')
+    },
+    {
         name: 'HotRelease',
         path: '/hot',
         component: view('HotRelease')

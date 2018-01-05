@@ -24,12 +24,11 @@
   -->
 
 <template>
-    <v-app id="inspire">
+    <v-app>
         <v-navigation-drawer
-                persistent
-                clipped
+                fixed
+                :clipped="$vuetify.breakpoint.width > 1264"
                 v-model="drawer"
-                enable-resize-watcher
                 app
         >
             <v-list dense>
@@ -39,6 +38,22 @@
                     </v-list-tile-action>
                     <v-list-tile-content>
                         <v-list-tile-title>Home</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile exact :to="{name:'Login'}">
+                    <v-list-tile-action>
+                        <v-icon>home</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>Login</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile exact :to="{name:'TableGrid'}">
+                    <v-list-tile-action>
+                        <v-icon>home</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>Table Grid</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile exact :to="{name:'HotRelease'}">
@@ -51,30 +66,45 @@
                 </v-list-tile>
             </v-list>
         </v-navigation-drawer>
-        <v-toolbar color="blue-grey" dark fixed app>
+        <v-toolbar color="blue-grey" dark fixed app clipped-left>
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-            <v-toolbar-title>Dashboard, US Pacific Time: \{{USTime}}</v-toolbar-title>
+            <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 300px; min-width: 250px' : 'min-width: 72px'"
+                             class="ml-0 pl-3">{{name}}
+            </v-toolbar-title>
+            <v-text-field
+                    light
+                    solo
+                    prepend-icon="search"
+                    placeholder="Search"
+                    style="max-width: 500px; min-width: 128px"
+            ></v-text-field>
+            <!--<span> US Pacific Time: \{{USTime}}</span>-->
+            <div class="d-flex align-center" style="margin-left: auto">
+                <v-btn icon>
+                    <v-icon>notifications</v-icon>
+                </v-btn>
+            </div>
         </v-toolbar>
-        <main>
-            <v-content>
-                <v-container fluid fill-height>
+        <v-content>
+            <v-container fluid fill-height>
+                <!--详细的使用animate.css https://github.com/daneden/animate.css-->
+                <!--Vue 提供了 过渡模式-->
+                <!--in-out：新元素先进行过渡，完成之后当前元素过渡离开。-->
+                <!--out-in：当前元素先进行过渡，完成之后新元素过渡进入。-->
+                <transition
+                        name="custom-classes-transition"
+                        enter-active-class="animated fadeInRight"
+                        leave-active-class="animated fadeOutLeft">
+                    <router-view/>
+                </transition>
 
-                    <!--详细的使用animate.css https://github.com/daneden/animate.css-->
-                    <!--Vue 提供了 过渡模式-->
-                    <!--in-out：新元素先进行过渡，完成之后当前元素过渡离开。-->
-                    <!--out-in：当前元素先进行过渡，完成之后新元素过渡进入。-->
-                    <transition
-                            name="custom-classes-transition"
-                            enter-active-class="animated fadeInRight"
-                            leave-active-class="animated fadeOutLeft">
-                        <router-view/>
-                    </transition>
+            </v-container>
+        </v-content>
 
-                </v-container>
-            </v-content>
-        </main>
-        <v-footer color="indigo" app>
-            <span class="white--text">&copy;\{{ new Date().getFullYear() }} BecauseQA. All rights reserved.</span>
+        <v-footer color="indigo" app absolute>
+
+            <span class="white--text">&copy;\{{ new Date().getFullYear() }} BecauseQA. All rights reserved </span>
+            <v-spacer></v-spacer>
         </v-footer>
     </v-app>
 </template>
@@ -82,7 +112,7 @@
 <script>
     export default {
         data: () => ({
-            drawer: true,
+            drawer: false,
             now: Date.now()
         }),
         computed: {
@@ -105,5 +135,6 @@
 </script>
 <style>
     /*NOTICE: the proxy setting, otherwise it will not get correct data*/
-    @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons');
+    /*@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons');*/
+    @import url('https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.min.css');
 </style>

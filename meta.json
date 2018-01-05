@@ -24,5 +24,5 @@
       "default": "alterhu2020@gmail.com<Walter.Hu>"
     }
   },
-  "completeMessage": "{{#inPlace}}To get started now:\n\n  npm install\n  npm start/npm run start-app/npm run start-chrome-extension {{else}}To get started:\n\n  cd {{destDirName}}\n  npm install\n  npm start/npm run start-app/npm run start-chrome-extension {{/inPlace}}"
+  "completeMessage": "{{#inPlace}}To get started now:\n\n  npm install\n  npm start or npm run start-app or npm run start-chrome-extension {{else}}To get started:\n\n  cd {{destDirName}}\n  npm install\n  npm start/npm run start-app/npm run start-chrome-extension {{/inPlace}}"
 }

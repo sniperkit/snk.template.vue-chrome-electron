@@ -24,16 +24,18 @@
   -->
 
 <template>
-    <div>
+    <v-layout justify-center align-center>
         <ul>
             <li>Demo for vue renderer: \{{ msg }}</li>
             <li>Demo for static image from <b>/static</b> folder(<b>Not worked for subfolder in production like:
                 http://www.host/demo/</b>): /static/img/48.png<img
                     src="/static/img/48.png" alt="react image"></li>
-            <li>Demo for static image from <b>/assets/img</b> folder <b>url-loader using here</b>:~@/assets/img/test.png <img
-                    src="~@/assets/img/test.png" alt="react image"></li>
-            <li>Demo for static image from <b>/assets/img</b> folder using es6 <b>url-loader using here</b>: import assetImage from '@/assets/img/test.png' <img
-                    :src="img" alt="react image"></li>
+            <li>Demo for static image from <b>/assets/img</b> folder <b>url-loader using here</b>:~@/assets/img/test.png
+                <img
+                        src="~@/assets/img/test.png" alt="react image"></li>
+            <li>Demo for static image from <b>/assets/img</b> folder using es6 <b>url-loader using here</b>: import
+                assetImage from '@/assets/img/test.png' <img
+                        :src="img" alt="react image"></li>
             <li>Demo for vuetify component: <br>
                 <v-btn color="primary" light @click.native.prevent="fetchLocationInfo">SHOW My IP</v-btn>
                 <transition
@@ -54,7 +56,7 @@
         </ul>
 
 
-    </div>
+    </v-layout>
 </template>
 
 <script>
@@ -65,7 +67,7 @@
         name: 'Home',
         data() {
             return {
-                msg: 'Welcome to BecauseQA Web App',
+                msg: 'Welcome to {{name}} App',
                 img: assetImage,
                 ip: null,
                 city: null,
@@ -96,8 +98,11 @@
 
             },
             fetchLatestRelease: function () {
+                var config = {
+                    headers: {'Authorization': 'Basic YWx0ZXJodTIwMjBAZ21haWwuY29tOmd1Y2hhbjEwMjY='}
+                }
                 const latestRleaseUrl = 'https://api.github.com/repos/vuejs/vue/releases/latest'
-                this.$http.get(latestRleaseUrl).then((response) => {
+                this.$http.get(latestRleaseUrl,config).then((response) => {
                     this.latestReleaseVersion = response.data.tag_name
                     this.latestReleaseNote = response.data.body
                     this.releaseDate = response.data.published_at
