@@ -21,7 +21,7 @@
   "minimum_chrome_version": "40.0",
   "browser_action": {
     "default_icon": "static/img/16.png",
-    "default_title": "{{name}} chrome plugin"
+    "default_title": "{{name}}"
   },
   "options_ui": {
     "chrome_style": true,
