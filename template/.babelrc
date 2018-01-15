@@ -1,0 +1,75 @@
+{
+  "comments": true,
+  "env": {
+    "main": {
+      "presets": [
+        [
+          "env",
+          {
+            "targets": {
+              "node": 7
+            }
+          }
+        ],
+        "stage-0"
+      ]
+    },
+    "renderer": {
+      "presets": [
+        [
+          "env",
+          {
+            "modules": false,
+            "targets": {
+              "browsers": [
+                "> 1%",
+                "last 2 versions",
+                "not ie <= 8"
+              ]
+            }
+          }
+        ],
+        "minify",
+        "stage-0"
+      ],
+      "plugins": [
+      ]
+    },
+    "web": {
+      "presets": [
+        [
+          "env",
+          {
+            "modules": false,
+            "targets": {
+              "browsers": [
+                "> 1%",
+                "last 2 versions",
+                "not ie <= 8"
+              ]
+            }
+          }
+        ],
+        "minify",
+        "stage-0"
+      ],
+      "plugins": [
+      ]
+    },
+    "development": {
+      "plugins": [
+      ]
+    },
+    "test": {
+      "presets": [
+        "env",
+        "minify",
+        "stage-0"
+      ],
+      "plugins": [
+        "istanbul"
+      ]
+    }
+  },
+  "plugins": []
+}
