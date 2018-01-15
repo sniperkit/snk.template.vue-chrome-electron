@@ -24,44 +24,20 @@
   -->
 
 <template>
-    <v-app>
+    <v-app v-cloak>
         <v-navigation-drawer
                 fixed
                 :clipped="$vuetify.breakpoint.width > 1264"
                 v-model="drawer"
                 app
         >
-            <v-list dense>
-                <v-list-tile exact :to="{name:'Home'}">
+            <v-list dense v-for="item in drawerItems" :key="item.title">
+                <v-list-tile exact :to="{name:item.routerName}">
                     <v-list-tile-action>
-                        <v-icon>home</v-icon>
+                        <v-icon>\{{item.icon}}</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
-                        <v-list-tile-title>Home</v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-                <v-list-tile exact :to="{name:'Login'}">
-                    <v-list-tile-action>
-                        <v-icon>home</v-icon>
-                    </v-list-tile-action>
-                    <v-list-tile-content>
-                        <v-list-tile-title>Login</v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-                <v-list-tile exact :to="{name:'TableGrid'}">
-                    <v-list-tile-action>
-                        <v-icon>home</v-icon>
-                    </v-list-tile-action>
-                    <v-list-tile-content>
-                        <v-list-tile-title>Table Grid</v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-                <v-list-tile exact :to="{name:'HotRelease'}">
-                    <v-list-tile-action>
-                        <v-icon>contact_mail</v-icon>
-                    </v-list-tile-action>
-                    <v-list-tile-content>
-                        <v-list-tile-title>Hot Release</v-list-tile-title>
+                        <v-list-tile-title>\{{item.title}}</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
             </v-list>
@@ -70,19 +46,27 @@
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
             <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 300px; min-width: 250px' : 'min-width: 72px'"
                              class="ml-0 pl-3">{{name}}
-            </v-toolbar-title>
             <v-text-field
                     light
                     solo
                     prepend-icon="search"
-                    placeholder="Search"
+                    :placeholder="USTime"
                     style="max-width: 500px; min-width: 128px"
             ></v-text-field>
             <!--<span> US Pacific Time: \{{USTime}}</span>-->
             <div class="d-flex align-center" style="margin-left: auto">
-                <v-btn icon>
-                    <v-icon>notifications</v-icon>
-                </v-btn>
+                <v-menu open-on-hover left offset-x>
+                    <v-btn icon dark color="primary" slot="activator">
+                        <v-icon>notifications</v-icon>
+                    </v-btn>
+                    <v-list>
+                        <v-list-tile v-for="item in notificationItems" :key="item.title" exact
+                                     :to="{name:item.routerName}">
+                            <v-list-tile-title>\{{ item.title }}</v-list-tile-title>
+                        </v-list-tile>
+                    </v-list>
+                </v-menu>
+
             </div>
         </v-toolbar>
         <v-content>
@@ -102,17 +86,32 @@
         </v-content>
 
         <v-footer color="indigo" app absolute>
-
             <span class="white--text">&copy;\{{ new Date().getFullYear() }} BecauseQA. All rights reserved </span>
             <v-spacer></v-spacer>
         </v-footer>
+        <!--scroll to the top when move to bottom-->
+        <v-scrolltop></v-scrolltop>
     </v-app>
 </template>
 
 <script>
+    import VScrolltop from '@/components/commons/VScrolltop'
+
     export default {
+        components: {VScrolltop},
         data: () => ({
+            alertMsg: true,
             drawer: false,
+            drawerItems: [
+                {routerName: 'home', icon: 'home', title: 'Home'},
+                {routerName: 'login', icon: 'home', title: 'Login'},
+                {routerName: 'tablegrid', icon: 'home', title: 'Table Grid'},
+                {routerName: 'hotrelease', icon: 'home', title: 'Hot Release'},
+                {routerName: 'fileupload', icon: 'home', title: 'File Upload'}
+            ],
+            notificationItems: [
+                {routerName: 'home', icon: 'home', title: 'Dashboard'},
+            ],
             now: Date.now()
         }),
         computed: {
@@ -136,5 +135,6 @@
 <style>
     /*NOTICE: the proxy setting, otherwise it will not get correct data*/
     /*@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons');*/
-    @import url('https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.min.css');
+    /*@import url('https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.min.css');*/
+    /*@import "assets/css/style.css";*/
 </style>

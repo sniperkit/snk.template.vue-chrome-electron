@@ -31,7 +31,7 @@
             <div v-html="body"></div>
             <v-divider dark></v-divider>
             <a :href="website" target="_blank">Official Website</a>
-            <v-btn flat :to="{name:'HotRelease'}">Hot Release Main Page</v-btn>
+            <v-btn flat :to="{name:'hotrelease'}">Hot Release Main Page</v-btn>
 
         </v-flex>
     </v-layout>

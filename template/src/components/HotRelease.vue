@@ -63,7 +63,8 @@
                                         </v-list-tile-title>
                                         <v-list-tile-sub-title class="grey--text text--darken-4">\{{item.published_at}}
                                         </v-list-tile-sub-title>
-                                        <v-list-tile-sub-title>\{{item.body}}</v-list-tile-sub-title>
+                                        <v-list-tile-sub-title>\{{item.body.substr(0,100)+'......'}}
+                                        </v-list-tile-sub-title>
                                     </v-list-tile-content>
 
                                 </v-list-tile>
@@ -78,25 +79,25 @@
 
                 <!--</v-card-actions>-->
             </v-card>
-            <Spinner :status="progress"></Spinner>
+            <v-spinner :status="progress"></v-spinner>
 
         </v-flex>
     </v-layout>
 
 </template>
 <script>
-    import Spinner from '@/components/Spinner'
-    import { mapGetters, mapActions } from 'vuex'
+    import VSpinner from '@/components/commons/VSpinner'
+    import {mapGetters, mapActions} from 'vuex'
 
     export default {
-        data () {
+        data() {
             return {
                 header: new Date().toDateString(),
                 items: [],
                 progress: false
             }
         },
-        components: {Spinner},
+        components: {VSpinner},
         methods: {
             fetchLatestVersion: function () {
                 const techs = {
@@ -113,9 +114,9 @@
                     nodejs: 'nodejs/node',
                     Selenium: 'SeleniumHQ/selenium',
                     VSCode: 'Microsoft/vscode',
-                    Jackson:'FasterXML/jackson-core',
-                    SpringBoot:'spring-projects/spring-boot',
-                    SpringFramework:'spring-projects/spring-framework',
+                    Jackson: 'FasterXML/jackson-core',
+                    SpringBoot: 'spring-projects/spring-boot',
+                    SpringFramework: 'spring-projects/spring-framework',
 
                 }
                 // use authentication header to get more limit rate in github api
@@ -164,10 +165,10 @@
             showDetailNotes: function (item) {
                 console.log('item body is ' + item)
                 this.$store.dispatch('updateCurrentReleaseAction', item)
-                this.$router.push({name: 'HotReleaseDetail'})
+                this.$router.push({name: 'hotreleasedetail'})
             }
         },
-        created () {
+        created() {
             this.fetchLatestVersion()
         }
     }

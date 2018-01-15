@@ -64,7 +64,7 @@
     import assetImage from '@/assets/img/test.png'
 
     export default {
-        name: 'Home',
+        name: 'home',
         data() {
             return {
                 msg: 'Welcome to {{name}} App',
@@ -85,7 +85,7 @@
                 this.$http.get(url)
                     .then((response) => {
                         const data = response.data
-                        console.log('LocationInfo: ' + data)
+                        // console.log('LocationInfo: ' + data)
                         this.ip = data.ip
                         this.city = data.city
                         this.latitude = data.latitude

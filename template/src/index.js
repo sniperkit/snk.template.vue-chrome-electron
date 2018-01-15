@@ -22,35 +22,31 @@
  * SOFTWARE.
  *
  */
+// Vue core, vue,vue-router,vuex
+import '@/assets/css/style.css'  //move into the App.vue file
 import Vue from 'vue'
+import {createRouter} from '@/routers'
+import App from './App'
+import store from '@/stores'
 
-// import log from '@/utils/LoggerUtils.js'
-// for animation
-// http://www.cnblogs.com/rlann/p/7192535.html
+// Animation progressbar, http://www.cnblogs.com/rlann/p/7192535.html
 import 'animate.css/animate.min.css'
 import 'nprogress/nprogress.css'
 import NProgress from 'nprogress'
 
-// for ui
+// UI, Vuetify
 import 'vuetify/dist/vuetify.min.css'
 import Vuetify from 'vuetify'
 
-// for http request
+// HttpRequest, axios
 import https from 'https'
-import VueAxios from 'vue-axios'
 import Axios from 'axios'
 
-import VueRouter from 'vue-router'
-import routes from '@/routers'
-import App from './App'
-import '@/assets/css/style.css'
-
-import store from '@/stores'
-
-// for OfflinePluginRuntime plugin only in production
+// ---------------------------plugins-----------------------------------
+// 1.Offline-plugin OfflinePluginRuntime plugin only in production
 const isProd = process.env.NODE_ENV === 'production'
 if (isProd) require('offline-plugin/runtime').install()
-
+// 2. vue-upload-component:
 //配置nprogress
 NProgress.inc(0.2)
 NProgress.configure({
@@ -66,10 +62,6 @@ NProgress.configure({
     parent: 'body',
     template: '<div class="bar" role="bar"><div class="peg"></div></div><div class="spinner" role="spinner"><div class="spinner-icon"></div></div>'
 })
-Vue.prototype.$progress = NProgress
-console.log('NProgress finished settings...')
-// ---------------------------------------Vuetify
-Vue.use(Vuetify)
 // ---------------------------------------Axios configuration--------------------
 // 1. Axios configuration
 const axios = Axios.create()
@@ -91,7 +83,7 @@ axios.defaults.timeout = 54500
 // request and response
 axios.interceptors.request.use(config => {
     // config.headers.Authorization = token
-    console.log('[XHR-axios] Request: ', config)
+    console.debug('[XHR-axios] Request: ', config)
     NProgress.start()
     return config
 }, err => {
@@ -99,7 +91,7 @@ axios.interceptors.request.use(config => {
 })
 
 axios.interceptors.response.use(config => {
-    console.log('[XHR-axios] Response: ', config)
+    console.debug('[XHR-axios] Response: ', config)
     NProgress.done()
     return config
 }, function (error) {
@@ -122,15 +114,17 @@ axios.interceptors.response.use(config => {
     return Promise.reject(error)
 })
 
-Vue.use(VueAxios, axios)
+// ---------------------------------------------------------------------------------------------------------
+Vue.use(Vuetify)
+
+Vue.prototype.$progress = NProgress
+Vue.prototype.$http = axios
+
 //****************************************Vue-Router*************************************************************************
-Vue.use(VueRouter)
-const basePath = __dirname
-// const basePath = '/demo/' // PRODUCTION ONLY, when deploy into production for subdirectory,change this to your need
-const router = new VueRouter({base: basePath, mode: 'history', routes: routes})
-//beforeeach for router
+const router = createRouter()
 router.beforeEach((to, from, next) => {
     NProgress.start()
+    // google analysis
     next()
 })
 router.afterEach((to, from, next) => {

@@ -28,44 +28,55 @@
 // const HotRelease = resolve => require(['@/components/HotRelease'], resolve)
 // const HotReleaseDetail = resolve => require(['@/components/HotReleaseDetail'], resolve)
 
-const routers = [
-    {
-        name: 'Home',
-        path: '/',
-        component: view('Home')
-    },
-    // to suppport for chrome html file path
-    {
-        name: 'HomeIndexHtml',
-        path: '/index.html',
-        component: view('Home')
-    },
-    {
-        name: 'Login',
-        path: '/login',
-        component: view('Login')
-    },
-    {
-        name: 'TableGrid',
-        path: '/table',
-        component: view('TableGrid')
-    },
-    {
-        name: 'HotRelease',
-        path: '/hot',
-        component: view('HotRelease')
-    },
-    {
-        name: 'HotReleaseDetail',
-        path: '/hotdetail',
-        component: view('HotReleaseDetail')
-    },
-    {
-        name: 'globalException',
-        path: '*',
-        redirect: '/'
+import Vue from 'vue'
+import Router from 'vue-router'
+// import ScrollBehavior from './ScrollBehavior'
+
+
+const meta = require('./meta.json')
+const releasePath = process.env.RELEASEPATH
+
+
+Vue.use(Router)
+
+export function createRouter() {
+    const router = new Router({
+        base: releasePath ? `/${releasePath}` : __dirname,
+        mode: 'history',
+        // ScrollBehavior,
+        routes: [
+            route('/', 'Home'),
+            route('/login', 'Login'),
+            route('/table', 'TableGrid'),
+            route('/hot', 'HotRelease'),
+            route('/hotdetail', 'HotReleaseDetail'),
+            route('/upload', 'FileUpload'),
+            {
+                name: 'globalException',
+                path: '*',
+                redirect: '/'
+            }
+
+        ]
+    })
+    return router
+}
+
+
+const route = function (routePath, componentName) {
+    const routeName = componentName.toLowerCase()
+    return {
+        name: routeName,
+        path: routePath,
+        meta: meta[routePath],
+        component: () => import(
+            /* webpackChunkName: "routes" */
+            /* webpackMode: "lazyRoute" */
+            `@/components/${componentName}`
+            )
     }
-]
+}
+
 
 /**
  * The common vue-router function to get the component page
@@ -78,14 +89,13 @@ function view(componentName) {
     if (componentName.indexOf('/') !== -1) {
         chunkName = componentName.replace(new RegExp('/', 'g'), '_')
     }
-    console.log(`Not used chunk name is: ${chunkName}`)
+    // console.log(`Not used chunk name is: ${chunkName}`)
     // const view = r => require.ensure([], () => r(require(`@/components/${componentName}`)), chunkName)
     const view = () => import(
-        /* webpackChunkName: "lazyRouterChunk" */
+        /* webpackChunkName: "routes" */
         /* webpackMode: "lazy" */
         `@/components/${componentName}`
         )
     return view
 }
 
-export default routers
