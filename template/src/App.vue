@@ -45,7 +45,8 @@
         <v-toolbar color="blue-grey" dark fixed app clipped-left>
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
             <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 300px; min-width: 250px' : 'min-width: 72px'"
-                             class="ml-0 pl-3">{{name}}
+                             class="ml-0 pl-3">sample-vuejs
+            </v-toolbar-title>
             <v-text-field
                     light
                     solo
@@ -99,21 +100,24 @@
 
     export default {
         components: {VScrolltop},
-        data: () => ({
-            alertMsg: true,
-            drawer: false,
-            drawerItems: [
-                {routerName: 'home', icon: 'home', title: 'Home'},
-                {routerName: 'login', icon: 'home', title: 'Login'},
-                {routerName: 'tablegrid', icon: 'home', title: 'Table Grid'},
-                {routerName: 'hotrelease', icon: 'home', title: 'Hot Release'},
-                {routerName: 'fileupload', icon: 'home', title: 'File Upload'}
-            ],
-            notificationItems: [
-                {routerName: 'home', icon: 'home', title: 'Dashboard'},
-            ],
-            now: Date.now()
-        }),
+        data: () => {
+            return {
+                alertMsg: true,
+                drawer: false,
+                drawerItems: [
+                    {routerName: 'home', icon: 'home', title: 'Home'},
+                    {routerName: 'login', icon: 'home', title: 'Login'},
+                    {routerName: 'tablegrid', icon: 'home', title: 'Table Grid'},
+                    {routerName: 'hotrelease', icon: 'home', title: 'Hot Release'},
+                    {routerName: 'fileupload', icon: 'home', title: 'File Upload'}
+                ],
+                notificationItems: [
+                    {routerName: 'home', icon: 'home', title: 'Dashboard'},
+                ],
+                now: Date.now()
+            }
+
+        },
         computed: {
             USTime: function () {
                 return new Date(this.now).toLocaleString('en-US', {timeZone: 'America/Los_Angeles'})
